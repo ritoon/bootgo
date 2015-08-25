@@ -2,6 +2,8 @@
 
 A barebones OS kernel written in go
 
+The kernel contains some code modified from devos barebones tutorial http://wiki.osdev.org/Bare_Bones
+
 ## setup
 To compile bootgo You need a gccgo cross-compiler(my gccgo version is 5.2.0)
 
