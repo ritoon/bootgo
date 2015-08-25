@@ -2,25 +2,23 @@ package kernel
 
 import "unsafe"
 
-//type VGAColor uint8
-
 const (
-  COLOR_BLACK = 0
-	COLOR_BLUE = 1
-	COLOR_GREEN = 2
-	COLOR_CYAN = 3
-	COLOR_RED = 4
-	COLOR_MAGENTA = 5
-	COLOR_BROWN = 6
-	COLOR_LIGHT_GREY = 7
-	COLOR_DARK_GREY = 8
-	COLOR_LIGHT_BLUE = 9
-	COLOR_LIGHT_GREEN = 10
-	COLOR_LIGHT_CYAN = 11
-	COLOR_LIGHT_RED = 12
-	COLOR_LIGHT_MAGENTA = 13
-	COLOR_LIGHT_BROWN = 14
-	COLOR_WHITE = 15
+  COLOR_BLACK = iota
+	COLOR_BLUE
+	COLOR_GREEN
+	COLOR_CYAN
+	COLOR_RED
+	COLOR_MAGENTA
+	COLOR_BROWN
+	COLOR_LIGHT_GREY
+	COLOR_DARK_GREY
+	COLOR_LIGHT_BLUE
+	COLOR_LIGHT_GREEN
+	COLOR_LIGHT_CYAN
+	COLOR_LIGHT_RED
+	COLOR_LIGHT_MAGENTA
+	COLOR_LIGHT_BROWN
+	COLOR_WHITE
 )
 
 const (
@@ -46,9 +44,7 @@ func terminalInit() {
   buffer = 0xB8000
   for y := 0; y < VGA_HEIGHT; y += 1 {
     for x := 0; x < VGA_WIDTH; x += 1 {
-      index := y * VGA_WIDTH + x;
-      addr := (*uint16)(unsafe.Pointer(buffer + uintptr(2 * index)))
-      *addr = makeVGAEntry(' ', color)
+      terminalPutEntryAt(' ', color, uint8(x), uint8(y))
     }
   }
 }
@@ -83,5 +79,5 @@ func writeString(data string) {
 
 func Main() {
   terminalInit()
-  writeString("hello! kernel in go!!")
+  writeString("hello, kernel!")
 }
