@@ -16,8 +16,8 @@ boot.o: boot.asm
 kernel.o: kernel.go
 	$(GCCGO) -c kernel.go -fgo-prefix=bootgo
 
-libgo.so: runtime/libgo.c
-	cd runtime \
+runtime/libgo.so: runtime/libgo.c
+	cd runtime; \
 	$(GCC) -shared -c libgo.c -o libgo.so -std=gnu99 -ffreestanding
 
 run-qemu:
